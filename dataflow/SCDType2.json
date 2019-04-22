@@ -1,0 +1,90 @@
+{
+	"name": "SCDType2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSQLCustomTrans",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerTrans",
+					"script": "source(output(\n\t\tCustomer_Id as integer,\n\t\tLocation as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tformat: 'table') ~> CustomerTrans"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureCustmoerDim",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerDim",
+					"script": "source(output(\n\t\tCust_Key as integer,\n\t\tCustomer_Id as integer,\n\t\tLocation as string,\n\t\tBegin_Date as date,\n\t\tEnd_Date as date\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tformat: 'table') ~> CustomerDim"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "UpdateAndNewInserts",
+					"script": "GenSk sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionBy('hash', 1),\n\tpartitionFileNames:['testr.csv']) ~> UpdateAndNewInserts"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "UpdateExisting",
+					"script": "UpdateUpdate sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tmapColumn(\n\t\tCust_Key,\n\t\tCustomer_Id,\n\t\tLocation,\n\t\tEnd_Date = NewEndDate\n\t),\n\tpartitionBy('hash', 1),\n\tpartitionFileNames:['TestML.csv']) ~> UpdateExisting"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ExtractNonExpRecs",
+					"script": "CustomerDim filter(equals(toString(End_Date), '9999-12-31')) ~> ExtractNonExpRecs"
+				},
+				{
+					"name": "RenameColumns",
+					"script": "CustomerTrans select(mapColumn(\n\t\tCustomerId = Customer_Id,\n\t\tLoc = Location\n\t))~> RenameColumns"
+				},
+				{
+					"name": "JoinSrcTarget",
+					"script": "RenameColumns, ExtractNonExpRecs join(CustomerId == Customer_Id,\n\tjoinType:'left',\n\tbroadcast: 'none')~> JoinSrcTarget"
+				},
+				{
+					"name": "DeriveNewOrExisting",
+					"script": "JoinSrcTarget derive(CheckNewRow = iif(CustomerId == Customer_Id  && Location != Loc, 1,0),\n\t\tBrandNewRow = iif(notEquals(CustomerId, iif(isNull(Customer_Id), 0, Customer_Id)) , 1, iif((CustomerId == CustomerId && Location != Loc),2,0)),\n\t\tEndDate = '9999-12-31',\n\t\tBeginDate = currentDate(),\n\t\tNewEndDate = currentDate()) ~> DeriveNewOrExisting"
+				},
+				{
+					"name": "NewRowSelect",
+					"script": "DeriveNewOrExisting filter(equals(BrandNewRow, 1)) ~> NewRowSelect"
+				},
+				{
+					"name": "NewRowToInsert",
+					"script": "NewRowSelect select(mapColumn(\n\t\tCustomer_Id = CustomerId,\n\t\tLocation = Loc,\n\t\tCust_Key,\n\t\tEnd_Date = EndDate,\n\t\tBegin_Date = BeginDate\n\t))~> NewRowToInsert"
+				},
+				{
+					"name": "UpdatedRows",
+					"script": "DeriveNewOrExisting filter(equals(BrandNewRow, 2)) ~> UpdatedRows"
+				},
+				{
+					"name": "SelectUpdateInsert",
+					"script": "UpdatedRows select(mapColumn(\n\t\tLocation = Loc,\n\t\tCust_Key,\n\t\tCustomer_Id,\n\t\tEnd_Date = EndDate,\n\t\tBegin_Date = BeginDate\n\t))~> SelectUpdateInsert"
+				},
+				{
+					"name": "UpdateUpdate",
+					"script": "UpdatedRows select()~> UpdateUpdate"
+				},
+				{
+					"name": "UnionInserts",
+					"script": "NewRowToInsert, SelectUpdateInsert union(byName: true)~> UnionInserts"
+				},
+				{
+					"name": "GenSk",
+					"script": "UnionInserts keyGenerate(output(Cust_Key as long),\n\tstartAt: 10L) ~> GenSk"
+				}
+			]
+		}
+	}
+}

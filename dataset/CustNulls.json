@@ -1,0 +1,20 @@
+{
+	"name": "CustNulls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobADFTest",
+			"type": "LinkedServiceReference"
+		},
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CustNullsData.csv",
+				"container": "adftest"
+			},
+			"columnDelimiter": ","
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
