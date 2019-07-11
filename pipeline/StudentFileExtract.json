@@ -35,7 +35,8 @@
 						"mappings": [
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 1
 								},
 								"sink": {
 									"name": "StudentName",
@@ -44,7 +45,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 2
 								},
 								"sink": {
 									"name": "StudentNRIC",
@@ -53,7 +55,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 3
 								},
 								"sink": {
 									"name": "CitizenshipCode",
@@ -62,7 +65,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 4
 								},
 								"sink": {
 									"name": "GenderCode",
@@ -71,7 +75,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 5
 								},
 								"sink": {
 									"name": "RaceCode",
@@ -80,7 +85,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 6
 								},
 								"sink": {
 									"name": "RegionName",
@@ -89,7 +95,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 7
 								},
 								"sink": {
 									"name": "Latitude",
@@ -98,7 +105,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 8
 								},
 								"sink": {
 									"name": "Longitude",
@@ -107,7 +115,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 9
 								},
 								"sink": {
 									"name": "Latitude_Longitude",
@@ -116,7 +125,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 10
 								},
 								"sink": {
 									"name": "School",
@@ -125,7 +135,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 11
 								},
 								"sink": {
 									"name": "CourseDescription",
@@ -134,7 +145,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 12
 								},
 								"sink": {
 									"name": "AcadQual_Descr",
@@ -143,7 +155,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 13
 								},
 								"sink": {
 									"name": "AdmitTerm",
@@ -152,7 +165,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 14
 								},
 								"sink": {
 									"name": "Aggregated_Score_for_O_Level_L1B4_O",
@@ -161,7 +175,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 15
 								},
 								"sink": {
 									"name": "Aggregated_Score_for_N_Level_MB3_N",
@@ -170,7 +185,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 16
 								},
 								"sink": {
 									"name": "Choice",
@@ -179,7 +195,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 17
 								},
 								"sink": {
 									"name": "Attrited",
@@ -188,7 +205,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 18
 								},
 								"sink": {
 									"name": "Reason",
@@ -197,7 +215,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 19
 								},
 								"sink": {
 									"name": "GPA1",
@@ -206,7 +225,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 20
 								},
 								"sink": {
 									"name": "TGPA2",
@@ -215,7 +235,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 21
 								},
 								"sink": {
 									"name": "TGPA3",
@@ -224,7 +245,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 22
 								},
 								"sink": {
 									"name": "TGPA4",
@@ -233,7 +255,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 23
 								},
 								"sink": {
 									"name": "TermAttrition",
@@ -242,7 +265,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 24
 								},
 								"sink": {
 									"name": "StudentsNotAttendingExams",
@@ -251,7 +275,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 25
 								},
 								"sink": {
 									"name": "CGPA1",
@@ -260,7 +285,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 26
 								},
 								"sink": {
 									"name": "CGPA2",
@@ -269,7 +295,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 27
 								},
 								"sink": {
 									"name": "CGPA3",
@@ -278,7 +305,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 28
 								},
 								"sink": {
 									"name": "CGPA4",
@@ -287,7 +315,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 29
 								},
 								"sink": {
 									"name": "RoundedGPA",
@@ -296,7 +325,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 30
 								},
 								"sink": {
 									"name": "Faculty_Per_Temp",
@@ -305,7 +335,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 31
 								},
 								"sink": {
 									"name": "Attending_Extra_Lectures",
@@ -314,7 +345,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 32
 								},
 								"sink": {
 									"name": "Time_SpendinginLibrary",
@@ -323,7 +355,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 33
 								},
 								"sink": {
 									"name": "Infra_Effective",
@@ -332,7 +365,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 34
 								},
 								"sink": {
 									"name": "Using_Technology",
@@ -341,7 +375,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 35
 								},
 								"sink": {
 									"name": "Student_to_Faculty_Ratio",
@@ -350,7 +385,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 36
 								},
 								"sink": {
 									"name": "Awards_and_Recognition",
@@ -359,7 +395,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 37
 								},
 								"sink": {
 									"name": "Column37",
@@ -368,7 +404,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 38
 								},
 								"sink": {
 									"name": "Column38",
@@ -377,7 +413,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 39
 								},
 								"sink": {
 									"name": "Column39",
@@ -386,7 +422,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 40
 								},
 								"sink": {
 									"name": "Column40",
@@ -395,7 +432,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 41
 								},
 								"sink": {
 									"name": "Column41",
@@ -404,7 +442,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 42
 								},
 								"sink": {
 									"name": "Column42",
@@ -413,7 +452,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 43
 								},
 								"sink": {
 									"name": "Column43",
@@ -422,7 +461,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 44
 								},
 								"sink": {
 									"name": "Column44",
@@ -431,7 +470,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 45
 								},
 								"sink": {
 									"name": "Column45",
@@ -440,7 +480,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 46
 								},
 								"sink": {
 									"name": "Column46",
@@ -449,7 +489,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 47
 								},
 								"sink": {
 									"name": "Column47",
@@ -458,7 +498,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 48
 								},
 								"sink": {
 									"name": "Column48",
@@ -467,7 +508,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 49
 								},
 								"sink": {
 									"name": "Column49",
@@ -476,7 +518,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 50
 								},
 								"sink": {
 									"name": "Column50",
@@ -485,7 +527,7 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"ordinal": 51
 								},
 								"sink": {
 									"name": "Column51",
@@ -494,7 +536,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 52
 								},
 								"sink": {
 									"name": "Column52",
@@ -503,7 +546,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 53
 								},
 								"sink": {
 									"name": "Column53",
@@ -512,7 +556,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 54
 								},
 								"sink": {
 									"name": "AverageGPA",
@@ -521,7 +566,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 55
 								},
 								"sink": {
 									"name": "HighRisk",
@@ -530,7 +576,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 56
 								},
 								"sink": {
 									"name": "HighPotential",
@@ -539,7 +586,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 57
 								},
 								"sink": {
 									"name": "Avg",
@@ -548,7 +596,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 58
 								},
 								"sink": {
 									"name": "Studentsleft",
@@ -557,7 +606,8 @@
 							},
 							{
 								"source": {
-									"type": "String"
+									"type": "String",
+									"ordinal": 59
 								},
 								"sink": {
 									"name": "ChoicebasedonAttrition",
