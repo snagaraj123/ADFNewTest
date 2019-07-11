@@ -16,8 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "FileSystemSource",
-						"recursive": false
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSetting",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSetting"
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -35,7 +41,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "FileShare1",
+						"referenceName": "StudentExtract",
 						"type": "DatasetReference"
 					}
 				],
