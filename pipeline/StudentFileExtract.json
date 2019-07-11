@@ -1,0 +1,586 @@
+{
+	"name": "StudentFileExtract",
+	"properties": {
+		"activities": [
+			{
+				"name": "ExtractStudentFile",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSetting",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSetting"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "StudentName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "StudentNRIC",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CitizenshipCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "GenderCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "RaceCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "RegionName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Latitude",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Longitude",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Latitude_Longitude",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "School",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CourseDescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "AcadQual_Descr",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "AdmitTerm",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Aggregated_Score_for_O_Level_L1B4_O",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Aggregated_Score_for_N_Level_MB3_N",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Choice",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Attrited",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Reason",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "GPA1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "TGPA2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "TGPA3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "TGPA4",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "TermAttrition",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "StudentsNotAttendingExams",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CGPA1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CGPA2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CGPA3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "CGPA4",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "RoundedGPA",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Faculty_Per_Temp",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Attending_Extra_Lectures",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Time_SpendinginLibrary",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Infra_Effective",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Using_Technology",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Student_to_Faculty_Ratio",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Awards_and_Recognition",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column37",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column38",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column39",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column40",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column41",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column42",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column43",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column44",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column45",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column46",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column47",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column48",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column49",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column50",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column51",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column52",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column53",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "AverageGPA",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "HighRisk",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "HighPotential",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Avg",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "Studentsleft",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String"
+								},
+								"sink": {
+									"name": "ChoicebasedonAttrition",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "StudentExtract",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Student_database",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
