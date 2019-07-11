@@ -1,0 +1,117 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adftesting-harish"
+		},
+		"AzureBlobADFTest_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"AzureMySql1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseADFTest_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseNation_connectionString": {
+			"value": ""
+		},
+		"FileServer1_password": {
+			"value": ""
+		},
+		"Sftp1_password": {
+			"value": ""
+		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage3_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage4_connectionString": {
+			"value": ""
+		},
+		"studentExtractFinal_connectionString": {
+			"value": ""
+		},
+		"AzureSQLDbStudent_connectionString": {
+			"value": ""
+		},
+		"AzureBlob1_properties_typeProperties_fileName": {
+			"value": "AdfTestCICD.csv"
+		},
+		"AzureBlob1_properties_typeProperties_folderPath": {
+			"value": "adftest"
+		},
+		"AzureBlob2_properties_typeProperties_fileName": {
+			"value": "CopiedfileCICD.csv"
+		},
+		"AzureBlob2_properties_typeProperties_folderPath": {
+			"value": "adftest"
+		},
+		"AzureBlob3_properties_typeProperties_fileName": {
+			"value": "AdfTestCICD.csv"
+		},
+		"AzureBlob3_properties_typeProperties_folderPath": {
+			"value": "adftest"
+		},
+		"DestinationDataset_juq_properties_typeProperties_fileName": {
+			"value": ""
+		},
+		"DestinationDataset_juq_properties_typeProperties_folderPath": {
+			"value": "target"
+		},
+		"DestinationDataset_lml_properties_typeProperties_fileName": {
+			"value": ""
+		},
+		"DestinationDataset_lml_properties_typeProperties_folderPath": {
+			"value": "target"
+		},
+		"FileShare1_properties_typeProperties_fileName": {
+			"value": ""
+		},
+		"FileShare1_properties_typeProperties_folderPath": {
+			"value": "data"
+		},
+		"SourceDataset_juq_properties_typeProperties_fileName": {
+			"value": ""
+		},
+		"SourceDataset_juq_properties_typeProperties_folderPath": {
+			"value": "data"
+		},
+		"SourceDataset_lml_properties_typeProperties_fileName": {
+			"value": "data"
+		},
+		"SourceDataset_lml_properties_typeProperties_folderPath": {
+			"value": ""
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"value": "WIPRO\\HA294143"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "openbdre"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowStart": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowEnd": {
+			"value": "@trigger().outputs.windowEndTime"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

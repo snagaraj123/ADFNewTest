@@ -1,0 +1,320 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adftesting-harish"
+		},
+		"AzureBlobADFTest_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobADFTest'"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"AzureMySql1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureMySql1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzureSqlDatabaseADFTest_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseADFTest'"
+		},
+		"AzureSqlDatabaseNation_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseNation'"
+		},
+		"FileServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServer1'"
+		},
+		"Sftp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sftp1'"
+		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
+		"AzureBlobStorage3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage3'"
+		},
+		"AzureBlobStorage4_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage4'"
+		},
+		"studentExtractFinal_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'studentExtractFinal'"
+		},
+		"AzureSQLDbStudent_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDbStudent'"
+		},
+		"AzureBlob1_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "AdfTestCICD.csv"
+		},
+		"AzureBlob1_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "adftest"
+		},
+		"AzureBlob2_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "CopiedfileCICD.csv"
+		},
+		"AzureBlob2_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "adftest"
+		},
+		"AzureBlob3_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "AdfTestCICD.csv"
+		},
+		"AzureBlob3_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "adftest"
+		},
+		"DestinationDataset_juq_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"DestinationDataset_juq_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "target"
+		},
+		"DestinationDataset_lml_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"DestinationDataset_lml_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "target"
+		},
+		"FileShare1_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"FileShare1_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"SourceDataset_juq_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"SourceDataset_juq_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"SourceDataset_lml_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"SourceDataset_lml_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "WIPRO\\HA294143"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "openbdre"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowStart": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowEnd": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas Token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobADFTest_connectionString": {
+						"value": "[parameters('AzureBlobADFTest_connectionString')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AzureMySql1_connectionString": {
+						"value": "[parameters('AzureMySql1_connectionString')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"AzureSqlDatabaseADFTest_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseADFTest_connectionString')]"
+					},
+					"AzureSqlDatabaseNation_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseNation_connectionString')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
+					},
+					"AzureBlobStorage3_connectionString": {
+						"value": "[parameters('AzureBlobStorage3_connectionString')]"
+					},
+					"AzureBlobStorage4_connectionString": {
+						"value": "[parameters('AzureBlobStorage4_connectionString')]"
+					},
+					"studentExtractFinal_connectionString": {
+						"value": "[parameters('studentExtractFinal_connectionString')]"
+					},
+					"AzureSQLDbStudent_connectionString": {
+						"value": "[parameters('AzureSQLDbStudent_connectionString')]"
+					},
+					"AzureBlob1_properties_typeProperties_fileName": {
+						"value": "[parameters('AzureBlob1_properties_typeProperties_fileName')]"
+					},
+					"AzureBlob1_properties_typeProperties_folderPath": {
+						"value": "[parameters('AzureBlob1_properties_typeProperties_folderPath')]"
+					},
+					"AzureBlob2_properties_typeProperties_fileName": {
+						"value": "[parameters('AzureBlob2_properties_typeProperties_fileName')]"
+					},
+					"AzureBlob2_properties_typeProperties_folderPath": {
+						"value": "[parameters('AzureBlob2_properties_typeProperties_folderPath')]"
+					},
+					"AzureBlob3_properties_typeProperties_fileName": {
+						"value": "[parameters('AzureBlob3_properties_typeProperties_fileName')]"
+					},
+					"AzureBlob3_properties_typeProperties_folderPath": {
+						"value": "[parameters('AzureBlob3_properties_typeProperties_folderPath')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
+					"FileServer1_password": {
+						"value": "[parameters('FileServer1_password')]"
+					},
+					"Sftp1_password": {
+						"value": "[parameters('Sftp1_password')]"
+					},
+					"FileServer1_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
+					},
+					"Sftp1_properties_typeProperties_userName": {
+						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"DestinationDataset_juq_properties_typeProperties_fileName": {
+						"value": "[parameters('DestinationDataset_juq_properties_typeProperties_fileName')]"
+					},
+					"DestinationDataset_juq_properties_typeProperties_folderPath": {
+						"value": "[parameters('DestinationDataset_juq_properties_typeProperties_folderPath')]"
+					},
+					"DestinationDataset_lml_properties_typeProperties_fileName": {
+						"value": "[parameters('DestinationDataset_lml_properties_typeProperties_fileName')]"
+					},
+					"DestinationDataset_lml_properties_typeProperties_folderPath": {
+						"value": "[parameters('DestinationDataset_lml_properties_typeProperties_folderPath')]"
+					},
+					"FileShare1_properties_typeProperties_fileName": {
+						"value": "[parameters('FileShare1_properties_typeProperties_fileName')]"
+					},
+					"FileShare1_properties_typeProperties_folderPath": {
+						"value": "[parameters('FileShare1_properties_typeProperties_folderPath')]"
+					},
+					"SourceDataset_juq_properties_typeProperties_fileName": {
+						"value": "[parameters('SourceDataset_juq_properties_typeProperties_fileName')]"
+					},
+					"SourceDataset_juq_properties_typeProperties_folderPath": {
+						"value": "[parameters('SourceDataset_juq_properties_typeProperties_folderPath')]"
+					},
+					"SourceDataset_lml_properties_typeProperties_fileName": {
+						"value": "[parameters('SourceDataset_lml_properties_typeProperties_fileName')]"
+					},
+					"SourceDataset_lml_properties_typeProperties_folderPath": {
+						"value": "[parameters('SourceDataset_lml_properties_typeProperties_folderPath')]"
+					},
+					"Trigger_juq_properties_pipeline_parameters_windowStart": {
+						"value": "[parameters('Trigger_juq_properties_pipeline_parameters_windowStart')]"
+					},
+					"Trigger_juq_properties_pipeline_parameters_windowEnd": {
+						"value": "[parameters('Trigger_juq_properties_pipeline_parameters_windowEnd')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_1')]"
+			]
+		}
+	]
+}
