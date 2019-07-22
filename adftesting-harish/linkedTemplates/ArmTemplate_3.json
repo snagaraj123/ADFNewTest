@@ -1,0 +1,402 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adftesting-harish"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowStart": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"Trigger_juq_properties_pipeline_parameters_windowEnd": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SCDType2Modified')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "AzureSQLCustomTrans",
+								"type": "DatasetReference"
+							},
+							"name": "CustomerTrans",
+							"typeProperties": {}
+						},
+						{
+							"dataset": {
+								"referenceName": "AzureCustmoerDim",
+								"type": "DatasetReference"
+							},
+							"name": "CustomerDim",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference"
+							},
+							"name": "UpdateAndNewInserts"
+						},
+						{
+							"dataset": {
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference"
+							},
+							"name": "UpdateExisting"
+						}
+					],
+					"script": "\n\nsource(output(\n\t\tCustomer_Id as integer,\n\t\tLocation as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> CustomerTrans\nsource(output(\n\t\tCust_Key as integer,\n\t\tCustomer_Id as integer,\n\t\tLocation as string,\n\t\tBegin_Date as date,\n\t\tEnd_Date as date\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> CustomerDim\nCustomerDim filter(equals(toString(End_Date), '9999-12-31')) ~> ExtractNonExpRecs\nCustomerTrans select(mapColumn(\n\t\tCustomerId = Customer_Id,\n\t\tLoc = Location\n\t)) ~> RenameColumns\nRenameColumns, ExtractNonExpRecs join(CustomerId == Customer_Id,\n\tjoinType:'left',\n\tbroadcast: 'none')~> JoinSrcTarget\nJoinSrcTarget derive(CheckNewRow = iif(CustomerId == Customer_Id  && Location != Loc, 1,0),\n\t\tBrandNewRow = iif(notEquals(CustomerId, iif(isNull(Customer_Id), 0, Customer_Id)) , 1, iif((CustomerId == CustomerId && Location != Loc),2,0)),\n\t\tEndDate = '9999-12-31',\n\t\tBeginDate = currentDate(),\n\t\tNewEndDate = currentDate()) ~> DeriveNewOrExisting\nDeriveNewOrExisting filter(equals(BrandNewRow, 1)) ~> NewRowSelect\nNewRowSelect select(mapColumn(\n\t\tCustomer_Id = CustomerId,\n\t\tLocation = Loc,\n\t\tCust_Key,\n\t\tEnd_Date = EndDate,\n\t\tBegin_Date = BeginDate\n\t)) ~> NewRowToInsert\nDeriveNewOrExisting filter(equals(BrandNewRow, 2)) ~> UpdatedRows\nUpdatedRows select(mapColumn(\n\t\tLocation = Loc,\n\t\tCust_Key,\n\t\tCustomer_Id,\n\t\tEnd_Date = EndDate,\n\t\tBegin_Date = BeginDate\n\t)) ~> SelectUpdateInsert\nUpdatedRows select() ~> UpdateUpdate\nNewRowToInsert, SelectUpdateInsert union(byName: true)~> UnionInserts\nUnionInserts derive(Cust_Key = crc32(Customer_Id, Location),\n\tpartitionBy('hash', 1)) ~> GenSKs\nGenSKs sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['testr.csv'],\n\tpartitionBy('hash', 1)) ~> UpdateAndNewInserts\nUpdateUpdate sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['TestML.csv'],\n\tmapColumn(\n\t\tCust_Key,\n\t\tCustomer_Id,\n\t\tLocation,\n\t\tEnd_Date = NewEndDate\n\t),\n\tpartitionBy('hash', 1)) ~> UpdateExisting"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SCDUpdate')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "SCDUpdate",
+								"type": "DatasetReference"
+							},
+							"name": "SCDUpdates",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureCustmoerDim",
+								"type": "DatasetReference"
+							},
+							"name": "SCDUpdateUpd"
+						}
+					],
+					"script": "\n\nsource(output(\n\t\tCust_Key as integer,\n\t\tCustmer_Id as integer,\n\t\tLocation as string,\n\t\tEnd_Date as date\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false) ~> SCDUpdates\nSelect1 alterRow(updateIf(Cust_Key>0)) ~> AlterRow1\nSCDUpdates select(mapColumn(\n\t\tCust_Key,\n\t\tEnd_Date\n\t)) ~> Select1\nAlterRow1 sink(input(\n\t\tCust_Key as integer,\n\t\tCustomer_Id as integer,\n\t\tLocation as string,\n\t\tBegin_Date as date,\n\t\tEnd_Date as date\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['Cust_Key'],\n\tmapColumn(\n\t\tCust_Key,\n\t\tEnd_Date\n\t)) ~> SCDUpdateUpd"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADFTestScdMainflows')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SCDType2Modified",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "SCDType2Modified",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"CustomerTrans": {},
+									"CustomerDim": {},
+									"UpdateAndNewInserts": {},
+									"UpdateExisting": {}
+								}
+							},
+							"staging": {}
+						}
+					},
+					{
+						"name": "SCDUpdate",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "SCDType2Modified",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "SCDUpdate",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"SCDUpdates": {},
+									"SCDUpdateUpd": {}
+								}
+							},
+							"staging": {}
+						}
+					},
+					{
+						"name": "SCDInsertUpdate",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "SCDUpdate",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "SCDInsertUpdate",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"SCDInsertUodate": {},
+									"SCDUpdateInsertNew": {}
+								}
+							},
+							"staging": {}
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/SCDType2Modified')]",
+				"[concat(variables('factoryId'), '/dataflows/SCDUpdate')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyPipeline_incremental')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_juq",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "data/"
+							},
+							{
+								"name": "Destination",
+								"value": "target/"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "FileSystemSource",
+								"recursive": false
+							},
+							"sink": {
+								"type": "FileSystemSink",
+								"copyBehavior": "PreserveHierarchy"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_juq",
+								"type": "DatasetReference",
+								"parameters": {
+									"cw_modifiedDatetimeStart": "@pipeline().parameters.windowStart",
+									"cw_modifiedDatetimeEnd": "@pipeline().parameters.windowEnd"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_juq",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"windowStart": {
+						"type": "String"
+					},
+					"windowEnd": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PipeLineAdfDataFlow')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ADFDataFlowTest",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 1,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "ADFDataFlowTest",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Supplier": {
+										"DBName": "@pipeline().parameters.DBName"
+									},
+									"Nation": {
+										"DBName": "@pipeline().parameters.DBName"
+									},
+									"RightSuppData": {
+										"ContainerName": "@pipeline().parameters.ContainerName"
+									}
+								}
+							},
+							"staging": {}
+						}
+					}
+				],
+				"parameters": {
+					"DBName": {
+						"type": "String",
+						"defaultValue": "CDRS_Test"
+					},
+					"FilePath": {
+						"type": "String"
+					},
+					"ContainerName": {
+						"type": "String",
+						"defaultValue": "adftest"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SCDAdfTest')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SCDType2",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "SCDType2",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"CustomerTrans": {},
+									"CustomerDim": {},
+									"UpdateAndNewInserts": {},
+									"UpdateExisting": {}
+								}
+							},
+							"staging": {}
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_juq')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipeline": {
+					"pipelineReference": {
+						"referenceName": "CopyPipeline_incremental",
+						"type": "PipelineReference"
+					},
+					"parameters": {
+						"windowStart": "[parameters('Trigger_juq_properties_pipeline_parameters_windowStart')]",
+						"windowEnd": "[parameters('Trigger_juq_properties_pipeline_parameters_windowEnd')]"
+					}
+				},
+				"type": "TumblingWindowTrigger",
+				"typeProperties": {
+					"frequency": "Minute",
+					"interval": 15,
+					"startTime": "2019-02-27T13:22:00.063Z",
+					"delay": "00:00:00",
+					"maxConcurrency": 50,
+					"retryPolicy": {
+						"intervalInSeconds": 30
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_incremental')]"
+			]
+		}
+	]
+}

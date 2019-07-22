@@ -19,13 +19,41 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
 		},
+		"AzureBlobStorage3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage3'"
+		},
+		"AzureBlobStorage4_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage4'"
+		},
+		"AzureBlobStorage5_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage5'"
+		},
+		"AzureBlobStorage6_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage6'"
+		},
 		"AzureMySql1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureMySql1'"
 		},
+		"AzureSQLDbStudent_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSQLDbStudent'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzureSqlDatabase2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase2'"
+		},
+		"AzureSqlDatabase3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase3'"
 		},
 		"AzureSqlDatabaseADFTest_connectionString": {
 			"type": "secureString",
@@ -47,21 +75,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
 		},
-		"AzureBlobStorage3_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage3'"
-		},
-		"AzureBlobStorage4_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage4'"
-		},
 		"studentExtractFinal_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'studentExtractFinal'"
-		},
-		"AzureSQLDbStudent_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSQLDbStudent'"
 		},
 		"AzureBlob1_properties_typeProperties_fileName": {
 			"type": "string",
@@ -176,11 +192,32 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
+					"AzureBlobStorage3_connectionString": {
+						"value": "[parameters('AzureBlobStorage3_connectionString')]"
+					},
+					"AzureBlobStorage4_connectionString": {
+						"value": "[parameters('AzureBlobStorage4_connectionString')]"
+					},
+					"AzureBlobStorage5_connectionString": {
+						"value": "[parameters('AzureBlobStorage5_connectionString')]"
+					},
+					"AzureBlobStorage6_connectionString": {
+						"value": "[parameters('AzureBlobStorage6_connectionString')]"
+					},
 					"AzureMySql1_connectionString": {
 						"value": "[parameters('AzureMySql1_connectionString')]"
 					},
+					"AzureSQLDbStudent_connectionString": {
+						"value": "[parameters('AzureSQLDbStudent_connectionString')]"
+					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"AzureSqlDatabase2_connectionString": {
+						"value": "[parameters('AzureSqlDatabase2_connectionString')]"
+					},
+					"AzureSqlDatabase3_connectionString": {
+						"value": "[parameters('AzureSqlDatabase3_connectionString')]"
 					},
 					"AzureSqlDatabaseADFTest_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseADFTest_connectionString')]"
@@ -191,17 +228,8 @@
 					"linkedService1_connectionString": {
 						"value": "[parameters('linkedService1_connectionString')]"
 					},
-					"AzureBlobStorage3_connectionString": {
-						"value": "[parameters('AzureBlobStorage3_connectionString')]"
-					},
-					"AzureBlobStorage4_connectionString": {
-						"value": "[parameters('AzureBlobStorage4_connectionString')]"
-					},
 					"studentExtractFinal_connectionString": {
 						"value": "[parameters('studentExtractFinal_connectionString')]"
-					},
-					"AzureSQLDbStudent_connectionString": {
-						"value": "[parameters('AzureSQLDbStudent_connectionString')]"
 					},
 					"AzureBlob1_properties_typeProperties_fileName": {
 						"value": "[parameters('AzureBlob1_properties_typeProperties_fileName')]"
@@ -214,12 +242,6 @@
 					},
 					"AzureBlob2_properties_typeProperties_folderPath": {
 						"value": "[parameters('AzureBlob2_properties_typeProperties_folderPath')]"
-					},
-					"AzureBlob3_properties_typeProperties_fileName": {
-						"value": "[parameters('AzureBlob3_properties_typeProperties_fileName')]"
-					},
-					"AzureBlob3_properties_typeProperties_folderPath": {
-						"value": "[parameters('AzureBlob3_properties_typeProperties_folderPath')]"
 					}
 				}
 			},
@@ -239,20 +261,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureBlobStorage2_connectionString": {
-						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					"AzureBlob3_properties_typeProperties_fileName": {
+						"value": "[parameters('AzureBlob3_properties_typeProperties_fileName')]"
 					},
-					"FileServer1_password": {
-						"value": "[parameters('FileServer1_password')]"
-					},
-					"Sftp1_password": {
-						"value": "[parameters('Sftp1_password')]"
-					},
-					"FileServer1_properties_typeProperties_userId": {
-						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
-					},
-					"Sftp1_properties_typeProperties_userName": {
-						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
+					"AzureBlob3_properties_typeProperties_folderPath": {
+						"value": "[parameters('AzureBlob3_properties_typeProperties_folderPath')]"
 					}
 				}
 			},
@@ -273,6 +286,21 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
+					"FileServer1_password": {
+						"value": "[parameters('FileServer1_password')]"
+					},
+					"Sftp1_password": {
+						"value": "[parameters('Sftp1_password')]"
+					},
+					"FileServer1_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
+					},
+					"Sftp1_properties_typeProperties_userName": {
+						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
 					},
 					"DestinationDataset_juq_properties_typeProperties_fileName": {
 						"value": "[parameters('DestinationDataset_juq_properties_typeProperties_fileName')]"
@@ -303,6 +331,26 @@
 					},
 					"SourceDataset_lml_properties_typeProperties_folderPath": {
 						"value": "[parameters('SourceDataset_lml_properties_typeProperties_folderPath')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"Trigger_juq_properties_pipeline_parameters_windowStart": {
 						"value": "[parameters('Trigger_juq_properties_pipeline_parameters_windowStart')]"
@@ -313,7 +361,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_1')]"
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_2')]"
 			]
 		}
 	]

@@ -14,10 +14,31 @@
 		"AzureBlobStorage2_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorage3_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage4_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage5_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage6_connectionString": {
+			"value": ""
+		},
 		"AzureMySql1_connectionString": {
 			"value": ""
 		},
+		"AzureSQLDbStudent_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase2_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase3_connectionString": {
 			"value": ""
 		},
 		"AzureSqlDatabaseADFTest_connectionString": {
@@ -35,16 +56,7 @@
 		"linkedService1_connectionString": {
 			"value": ""
 		},
-		"AzureBlobStorage3_connectionString": {
-			"value": ""
-		},
-		"AzureBlobStorage4_connectionString": {
-			"value": ""
-		},
 		"studentExtractFinal_connectionString": {
-			"value": ""
-		},
-		"AzureSQLDbStudent_connectionString": {
 			"value": ""
 		},
 		"AzureBlob1_properties_typeProperties_fileName": {
