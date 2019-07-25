@@ -1,0 +1,6 @@
+{
+	"name": "integrationRuntimeIRT",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
